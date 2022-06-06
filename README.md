@@ -7,6 +7,7 @@ What is the desired behaviour here?
 - $ mix phx.server   
 - Browse and select file
 - Restart web server
+- On the browser click upload
 - Observe logs
 
 
