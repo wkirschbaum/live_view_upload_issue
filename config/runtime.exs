@@ -20,6 +20,15 @@ if System.get_env("PHX_SERVER") do
   config :download_issue, DownloadIssueWeb.Endpoint, server: true
 end
 
+unless config_env() == :prod do
+  # default to the user's username as database username and password
+  username = String.trim(elem(System.cmd("whoami", []), 0))
+
+  if socket = System.get_env("POSTGRES_SOCKET") do
+    config :download_issue, DownloadIssue.Repo, socket: socket, username: username
+  end
+end
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
